@@ -1,0 +1,150 @@
+{
+  "communities": {
+    "0": [
+      "frontend_src_app",
+      "frontend_src_app_app",
+      "frontend_src_app_app_handleadd",
+      "frontend_src_app_app_handledelete",
+      "frontend_src_app_app_handleinputkeydown",
+      "frontend_src_app_app_handletoggle",
+      "frontend_src_index",
+      "frontend_src_main",
+      "react",
+      "ref_react",
+      "ref_react_dom"
+    ],
+    "1": [
+      "frontend_package",
+      "frontend_package_name",
+      "frontend_package_private",
+      "frontend_package_type",
+      "frontend_package_version",
+      "ref_jsdom",
+      "ref_prop_types",
+      "ref_vite"
+    ],
+    "2": [
+      "frontend_package_devdependencies",
+      "frontend_package_devdependencies_jsdom",
+      "frontend_package_devdependencies_playwright_test",
+      "frontend_package_devdependencies_testing_library_jest_dom",
+      "frontend_package_devdependencies_testing_library_react",
+      "frontend_package_devdependencies_testing_library_user_event",
+      "frontend_package_devdependencies_vitejs_plugin_react",
+      "frontend_package_devdependencies_vitest"
+    ],
+    "3": [
+      "frontend_package_dependencies",
+      "frontend_package_dependencies_prop_types",
+      "frontend_package_dependencies_react",
+      "frontend_package_dependencies_react_dom",
+      "frontend_package_dependencies_vite",
+      "frontend_package_dependencies_vitejs_plugin_react"
+    ],
+    "4": [
+      "frontend_package_scripts",
+      "frontend_package_scripts_build",
+      "frontend_package_scripts_dev",
+      "frontend_package_scripts_test",
+      "frontend_package_scripts_test_e2e"
+    ],
+    "5": [
+      "frontend_e2e_todo_spec",
+      "frontend_playwright_config",
+      "ref_playwright_test"
+    ],
+    "6": [
+      "frontend_index_html_main_module",
+      "frontend_index_html_root_element",
+      "frontend_index_html_todo_app"
+    ],
+    "7": [
+      "frontend_src_app_test",
+      "ref_testing_library_react",
+      "ref_testing_library_user_event"
+    ],
+    "8": [
+      "frontend_vite_config",
+      "ref_vitejs_plugin_react",
+      "ref_vitest"
+    ],
+    "9": [
+      "frontend_src_test_setup",
+      "ref_testing_library_jest_dom"
+    ],
+    "10": [
+      "readme_minimal_todo_app",
+      "readme_todo_task_state_in_memory"
+    ]
+  },
+  "cohesion": {
+    "0": 0.21818181818181817,
+    "1": 0.25,
+    "2": 0.25,
+    "3": 0.3333333333333333,
+    "4": 0.4,
+    "5": 0.6666666666666666,
+    "6": 0.6666666666666666,
+    "7": 0.6666666666666666,
+    "8": 0.6666666666666666,
+    "9": 1.0,
+    "10": 1.0
+  },
+  "gods": [
+    {
+      "id": "frontend_src_app_app",
+      "label": "App()",
+      "degree": 7
+    },
+    {
+      "id": "frontend_package_scripts",
+      "label": "scripts",
+      "degree": 5
+    },
+    {
+      "id": "ref_vitest",
+      "label": "vitest",
+      "degree": 4
+    },
+    {
+      "id": "ref_react",
+      "label": "react",
+      "degree": 3
+    },
+    {
+      "id": "ref_playwright_test",
+      "label": "@playwright/test",
+      "degree": 3
+    },
+    {
+      "id": "ref_testing_library_react",
+      "label": "@testing-library/react",
+      "degree": 3
+    },
+    {
+      "id": "ref_vitejs_plugin_react",
+      "label": "@vitejs/plugin-react",
+      "degree": 2
+    },
+    {
+      "id": "ref_react_dom",
+      "label": "react-dom",
+      "degree": 2
+    },
+    {
+      "id": "ref_testing_library_jest_dom",
+      "label": "@testing-library/jest-dom",
+      "degree": 2
+    },
+    {
+      "id": "ref_testing_library_user_event",
+      "label": "@testing-library/user-event",
+      "degree": 2
+    }
+  ],
+  "surprises": [],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}
