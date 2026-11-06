@@ -51,6 +51,18 @@ function App() {
     setTodos((currentTodos) => currentTodos.filter((todo) => todo.id !== id));
   }
 
+  /**
+   * Submit the form when Enter is pressed in the task input.
+   *
+   * @param {import('react').KeyboardEvent<HTMLInputElement>} event The input key event.
+   */
+  function handleInputKeyDown(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      event.currentTarget.form?.requestSubmit();
+    }
+  }
+
   return (
     <main className="page-shell">
       <section className="todo-card" aria-labelledby="page-title">
@@ -70,6 +82,7 @@ function App() {
             type="text"
             value={inputValue}
             onChange={(event) => setInputValue(event.target.value)}
+            onKeyDown={handleInputKeyDown}
             placeholder="What needs doing?"
             autoComplete="off"
           />

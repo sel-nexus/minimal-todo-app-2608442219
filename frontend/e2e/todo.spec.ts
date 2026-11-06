@@ -12,8 +12,15 @@ test('user can add, complete, and delete tasks through the todo workflow', async
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Todo App' })).toBeVisible();
   await expect(page.getByTestId('empty-state')).toHaveText('No tasks yet.');
+  await page.screenshot({ path: 'todo-workflow.png', fullPage: true });
 
   const input = page.getByTestId('todo-input');
+  await input.fill('   ');
+  await page.getByTestId('add-button').click();
+  await expect(page.getByTestId('empty-state')).toHaveText('No tasks yet.');
+  await expect(page.getByTestId('todo-list')).toHaveCount(0);
+  await expect(page.getByRole('alert')).toHaveCount(0);
+  expect(browserErrors).toEqual([]);
   await input.fill('First task');
   await page.getByTestId('add-button').click();
   await expect(input).toHaveValue('');
@@ -34,5 +41,13 @@ test('user can add, complete, and delete tasks through the todo workflow', async
 
   await page.getByTestId('todo-delete-2').click();
   await expect(page.getByTestId('empty-state')).toHaveText('No tasks yet.');
+
+  // Tasks are intentionally held in memory and reset when the page reloads.
+  await input.fill('Temporary task');
+  await page.getByTestId('add-button').click();
+  await expect(page.getByTestId('todo-item-3')).toContainText('Temporary task');
+  await page.reload();
+  await expect(page.getByTestId('empty-state')).toHaveText('No tasks yet.');
+  await expect(page.getByTestId('todo-list')).toHaveCount(0);
   expect(browserErrors).toEqual([]);
 });

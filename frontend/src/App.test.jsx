@@ -12,33 +12,77 @@ describe('Todo App', () => {
     expect(screen.queryByTestId('todo-list')).not.toBeInTheDocument();
   });
 
-  it('adds trimmed tasks with sequential IDs and clears the input', async () => {
+  it('adds a trimmed task with the button and clears the input', async () => {
     const user = userEvent.setup();
     render(<App />);
     const input = screen.getByTestId('todo-input');
 
-    await user.type(input, '  First task  ');
+    await user.type(input, '  Button task  ');
     await user.click(screen.getByTestId('add-button'));
-    expect(screen.getByTestId('todo-item-1')).toHaveTextContent('First task');
-    expect(input).toHaveValue('');
 
-    await user.type(input, 'Second task{Enter}');
-    expect(screen.getByTestId('todo-item-2')).toHaveTextContent('Second task');
+    expect(screen.getByTestId('todo-item-1')).toHaveTextContent('Button task');
     expect(input).toHaveValue('');
     expect(screen.queryByTestId('empty-state')).not.toBeInTheDocument();
   });
 
-  it('ignores empty and whitespace-only submissions without showing an error', async () => {
+  it('adds a task with Enter exactly once and clears the input', async () => {
     const user = userEvent.setup();
     render(<App />);
     const input = screen.getByTestId('todo-input');
 
-    await user.click(screen.getByTestId('add-button'));
-    expect(screen.getByTestId('empty-state')).toHaveTextContent('No tasks yet.');
+    await user.type(input, 'Enter task{Enter}');
 
-    await user.type(input, '   ');
-    await user.keyboard('{Enter}');
+    expect(screen.getByTestId('todo-item-1')).toHaveTextContent('Enter task');
+    expect(screen.getByTestId('todo-list').children).toHaveLength(1);
+    expect(screen.queryByTestId('todo-item-2')).not.toBeInTheDocument();
+    expect(input).toHaveValue('');
+  });
+
+  it('ignores an empty button submission without showing an error', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByTestId('add-button'));
+
     expect(screen.getByTestId('empty-state')).toHaveTextContent('No tasks yet.');
+    expect(screen.queryByTestId('todo-list')).not.toBeInTheDocument();
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+  });
+
+  it('does not submit when a non-Enter key is pressed in the input', () => {
+    render(<App />);
+    const input = screen.getByTestId('todo-input');
+
+    fireEvent.change(input, { target: { value: 'Pending task' } });
+    fireEvent.keyDown(input, { key: 'a' });
+
+    expect(input).toHaveValue('Pending task');
+    expect(screen.getByTestId('empty-state')).toHaveTextContent('No tasks yet.');
+    expect(screen.queryByTestId('todo-list')).not.toBeInTheDocument();
+  });
+
+  it('does not fail when Enter is pressed on an input without a form', () => {
+    render(<App />);
+    const input = screen.getByTestId('todo-input');
+    const detachedInput = input.cloneNode();
+
+    fireEvent.keyDown(detachedInput, { key: 'Enter' });
+
+    expect(detachedInput.form).toBeNull();
+    expect(screen.getByTestId('empty-state')).toHaveTextContent('No tasks yet.');
+    expect(screen.queryByTestId('todo-list')).not.toBeInTheDocument();
+  });
+
+  it('ignores whitespace-only Enter submission without showing an error', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    const input = screen.getByTestId('todo-input');
+
+    fireEvent.change(input, { target: { value: '   ' } });
+    await user.keyboard('{Enter}');
+
+    expect(screen.getByTestId('empty-state')).toHaveTextContent('No tasks yet.');
+    expect(screen.queryByTestId('todo-list')).not.toBeInTheDocument();
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
   });
 
